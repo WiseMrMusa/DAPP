@@ -11,10 +11,11 @@ const ConnectButtonLocal = () => {
     const { data: ensName } = useEnsName({ address })
     const { connect } = useConnect({
         connector: new InjectedConnector(),
+        
     })
 
     // { isConnected && <Injector /> }
-    if (isConnected) return (
+    if (!isConnected) return (
 
     <div >
         <Injector />
