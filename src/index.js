@@ -7,51 +7,75 @@ import Layout from './layouts/Layout';
 import Home from './pages/Home';
 import Pvc from './pages/Pvc';
 import Inec from './pages/Inec';
+import Ballot from './pages/Ballot';
 
 
 import '@rainbow-me/rainbowkit/styles.css';
-import {
-  getDefaultWallets, RainbowKitProvider,
-} from '@rainbow-me/rainbowkit';
-import { configureChains, createClient, WagmiConfig } from 'wagmi';
+// import {
+//   getDefaultWallets, RainbowKitProvider,
+// } from '@rainbow-me/rainbowkit';
+import { configureChains, createClient, WagmiConfig, chain } from 'wagmi';
 import { sepolia, goerli, mainnet, polygon, optimism, arbitrum } from 'wagmi/chains';
-import { alchemyProvider } from 'wagmi/providers/alchemy';
-import { publicProvider } from 'wagmi/providers/public';
+// import { alchemyProvider } from 'wagmi/providers/alchemy';
+// import { publicProvider } from 'wagmi/providers/public';
 
-const { chains, provider } = configureChains(
-  [sepolia, goerli, mainnet, polygon, optimism, arbitrum],
-  [
-    alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
-    publicProvider()
-  ]
+import { ConnectKitProvider, getDefaultClient } from "connectkit";
+
+
+// const { chains, provider } = configureChains(
+//   [sepolia, goerli, mainnet, polygon, optimism, arbitrum],
+//   [
+//     alchemyProvider({ apiKey: process.env.ALCHEMY_ID }),
+//     publicProvider()
+//   ]
+// );
+
+const chains = [sepolia, goerli, mainnet, polygon, optimism, arbitrum];
+
+const client = createClient(
+  getDefaultClient({
+    appName: "Wise Voting Platform",
+    alchemyId: process.env.ALCHEMY_ID,
+    chains,
+  }),
 );
 
-const { connectors } = getDefaultWallets({
-  appName: 'Wise Voting Platform',
-  chains
-});
+// const { connectors } = getDefaultClient({
+//   appName: 'Wise Voting Platform',
+//   chains
+// });
 
-const wagmiClient = createClient({
-  autoConnect: true,
-  connectors,
-  provider
-})
+// const wagmiClient = createClient({
+//   autoConnect: true,
+//   connectors,
+//   provider
+// })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <WagmiConfig client={wagmiClient}>
-      <RainbowKitProvider chains={chains}>
+    <WagmiConfig client={client}>
+      <ConnectKitProvider
+        chains={chains}
+        mode='light'
+        customTheme={{
+          "--ck-overlay-backdrop-filter": "8px",
+        }}
+        options={{
+          showBalance: true
+        }}
+      >
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="/pvc" element={<Pvc />} />
               <Route path="/inec" element={<Inec />} />
+              <Route path="/ballot" element={<Ballot />} />
             </Route>
           </Routes>
         </BrowserRouter>
-      </RainbowKitProvider>
+      </ConnectKitProvider>
     </WagmiConfig>
   </React.StrictMode>
 );

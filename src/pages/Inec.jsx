@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useContractRead, useContractWrite, usePrepareContractWrite } from "wagmi";
+
 import Vote_Factory_Abi from "../utils/voting_factory.json";
 // import Ballot_Abi from "../utils/ballot.json";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const contractAddress = "0x7d1deeb98D7c3CA7279198DC42485fCA22ecBa70";
 
@@ -44,8 +45,6 @@ const Inec = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
 
-
-
         setTimeout(() => {
             console.log({ name, period, tokenPerVote, contenders1, contenders2, contenders3 })
 
@@ -71,10 +70,6 @@ const Inec = () => {
 
     return (
         <main className="flex flex-col items-center mt-4 m-auto">
-            <ConnectButton />
-
-
-
 
             <form onSubmit={handleSubmit} className="flex flex-col mt-4 px-8 py-8 w-1/2 m-auto bg-zinc-50 shadow-2xl shadow-zinc-200 rounded-lg ring-1 ring-zinc-200">
 
@@ -149,7 +144,6 @@ const Inec = () => {
 
                     </div>
                 </div>
-
 
                 <button type="submit" className="w-full bg-zinc-800 text-white rounded-md p-2 hover:bg-zinc-900">Create Ballot</button>
             </form>

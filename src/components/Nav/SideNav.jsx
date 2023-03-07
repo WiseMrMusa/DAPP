@@ -261,6 +261,11 @@ const SideNacReu = () => {
                                 <span className="truncate">INEC</span>
                             </Link>
                         </li>
+                        <li className="relative">
+                            <Link className="flex justify-between gap-2 py-1 pr-3 text-sm transition pl-4 text-zinc-900" to="/ballot" aria-current="page">
+                                <span className="truncate">Ballots</span>
+                            </Link>
+                        </li>
                     </ul>
 
 

@@ -1,5 +1,6 @@
 // import { ConnectButton } from '@rainbow-me/rainbowkit';
 import ConnectButtonLocal from '../Atom/ConnectButtonLocal';
+import { ConnectKitButton } from "connectkit";
 
 const Head = () => {
     return (
@@ -52,7 +53,7 @@ const Head = () => {
 
                     <div className="flex gap-4">
 
-                        <ConnectButtonLocal />
+                        <ConnectKitButton />
                         {/* <ConnectButton /> */}
                     </div>
 
